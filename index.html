@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мои порции</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#f4f6f4;--fg:#1d2a2c;--mut:#667478;--card:#fff;--line:#dde4e1;--acc:#1f6f6b;--g:#4caf6a;--p:#8b5fd0;--r:#e0453f;--y:#f0b429;--b:#2f8fe0;--w:#9aa3a8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201f;--fg:#e8f0ee;--mut:#9bb0ac;--card:#1d2c2b;--line:#2f4442;--acc:#5fc4bb}}
+:root[data-theme="dark"]{--bg:#14201f;--fg:#e8f0ee;--mut:#9bb0ac;--card:#1d2c2b;--line:#2f4442;--acc:#5fc4bb}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 Manrope,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:520px;margin:0 auto;padding:14px}
+h1{font-size:24px;font-weight:800;margin:4px 0 12px}
+nav{display:flex;gap:6px;margin-bottom:12px}
+button{font:inherit;color:var(--fg);cursor:pointer}
+nav button,.btn,.dn button,.cnt button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px}
+nav button{flex:1;font-weight:700}
+nav .on,.btn{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:700}
+.row,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.dn{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700}
+.rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cnt{display:flex;align-items:center;gap:10px}
+.cnt button{padding:0 12px;font-size:22px;line-height:32px}
+.over{color:var(--r)}
+.sqs{display:flex;flex-wrap:wrap;gap:6px}
+.sq{width:32px;height:32px;border-radius:8px;border:2px solid var(--c);background:transparent;padding:0}
+.sq.f{background:var(--c)}
+.mut{color:var(--mut);font-size:14px}
+label{display:block;font-size:14px;color:var(--mut);margin:10px 0 2px}
+input,select{width:100%;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;font-weight:700}
+.chips span{background:var(--bg);border-radius:10px;padding:6px 10px}
+.btn{width:100%;margin-top:12px;padding:12px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;text-align:center}
+td,th{padding:6px 2px;border-bottom:1px solid var(--line)}
+td:first-child{text-align:left}
+.ok{color:var(--g);font-weight:700}
+.it{padding:9px 0;border-bottom:1px solid var(--line)}
+.hid{display:none}
+.chp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chp button{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:6px 12px;font-size:14px}
+.chp .on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.dt{margin:8px 0}
+.mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mc{display:flex;align-items:center;justify-content:space-between;border:2px solid var(--c);border-radius:12px;padding:4px 6px}
+.mc button{border:0;background:transparent;font-size:20px;padding:0 6px}
+.ml{margin:8px 0 0;padding-top:8px;border-top:1px solid var(--line)}
+.sq.h{background:linear-gradient(90deg,var(--c) 50%,transparent 50%)}
+.step{display:flex;align-items:center;gap:8px;margin-top:6px}
+.step button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:0 10px;font-size:16px;line-height:30px}
+.shot{border:2px solid var(--acc)}
+.nm{border:0;background:transparent;font-weight:800;font-size:20px;padding:0 0 4px}
+.sr{margin:10px 0}
+.sr>div:first-child{display:flex;justify-content:space-between;font-weight:700}
+.bar{height:8px;border-radius:4px;background:var(--bg);overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--c)}
+.eat{font-size:13px;color:var(--mut);margin-top:10px;line-height:1.5}
+</style></head><body><main>
+<h1>Мои порции</h1>
+<nav><button data-a="tab" data-t="day" class="on">Сегодня</button><button data-a="tab" data-t="calc">Моя норма</button><button data-a="tab" data-t="food">Продукты</button></nav>
+
+<section id="day"></section>
+
+<section id="calc" class="hid">
+<div class="card">
+<div class="two"><div><label for="sx">Пол</label><select id="sx"><option value="f">Женский</option><option value="m">Мужской</option></select></div>
+<div><label for="ag">Возраст</label><input id="ag" type="number" inputmode="numeric" placeholder="лет"></div>
+<div><label for="ht">Рост, см</label><input id="ht" type="number" inputmode="numeric"></div>
+<div><label for="wt">Вес, кг</label><input id="wt" type="number" inputmode="decimal"></div></div>
+<label for="ac">Активность</label><select id="ac"><option value="1.2">Сидячая, мало движения</option><option value="1.375" selected>Лёгкая: 1–3 тренировки в неделю</option><option value="1.55">Средняя: 3–5 тренировок</option><option value="1.725">Высокая: ежедневно</option></select>
+<label for="gl">Цель</label><select id="gl"><option value="l">Похудение (минус 15%)</option><option value="k">Поддержание веса</option></select>
+<label for="br">Или выберите калорийность сами</label><select id="br"><option value="">Посчитать по моим данным</option></select>
+<button class="btn" data-a="calc">Рассчитать</button>
+</div>
+<div id="res"></div>
+<p class="mut" id="cur"></p>
+</section>
+
+<section id="food" class="hid">
+<div id="tgt"></div>
+<input id="q" type="search" placeholder="Найти продукт: гречка, лосось, творог">
+<div class="card" id="list" style="margin-top:10px"></div>
+</section>
+<p class="mut">Данные хранятся только на этом устройстве. Если вы беременны, кормите грудью или у вас хронические заболевания, подбирайте рацион с врачом.</p>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const ls={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let S=ls.get("pm")||{norm:null,bonus:0,rng:"",log:{}};
+S.ml=S.ml||{};S.log=S.log||{};S.it=S.it||{};
+for(const d in S.log){(S.ml[d]=S.ml[d]||{})[6]={t:"",c:S.log[d],it:S.it[d]||{}}}
+S.log={};S.it={};
+const save=()=>ls.set("pm",S);
+const K=["g","p","r","y","b"];
+const C={g:["🟩","Овощи"],p:["🟪","Фрукты"],r:["🟥","Белок"],y:["🟨","Крахмал"],b:["🟦","Жиры"],w:["⬜","Бонус"]};
+const T=[[3,2,7,4,4],[4,3,8,5,5],[4,3,10,5,6],[5,3,11,6,6],[5,4,11,7,7],[6,4,13,7,8]];
+const R=["1200–1400","1400–1600","1600–1800","1800–2000","2000–2200","2200–2400"];
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+let cur=iso(new Date()),pend=null;
+const shift=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return iso(d)};
+const lbl=s=>new Date(s+"T12:00").toLocaleDateString("ru-RU",{weekday:"short",day:"numeric",month:"short"});
+const MN=["Завтрак","Перекус 1","Обед","Перекус 2","Ужин","Перекус 3"];
+let mi=0;
+const f=x=>x%1?(Math.floor(x)||"")+"½":String(x);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ad=d=>{const m=(d[3]||"").match(/\+ (🟦|🟥) (1|½)/),o={[d[1]]:1};if(m)o[m[1]==="🟦"?"b":"r"]=m[2]==="1"?1:.5;return o};
+function gm(s,m,mk){let d=S.ml[s];if(!d){if(!mk)return null;d=S.ml[s]={}}return d[m]||(mk?(d[m]={t:"",c:{},it:{}}):null)}
+const cnt=(s,k)=>{let t=0;const d=S.ml[s];if(d)for(const m in d)t+=d[m].c[k]||0;return t};
+const nrm=k=>k==="w"?0:(S.norm?S.norm[K.indexOf(k)]:0);
+function addC(k,dv){const M=gm(cur,mi,1);M.c[k]=Math.max(0,(M.c[k]||0)+dv);save()}
+function addItem(i,dq){const M=gm(cur,mi,1),q=M.it[i]||0;if(dq<0&&!q)return;M.it[i]=q+dq;if(!M.it[i])delete M.it[i];const o=ad(D[i]);for(const k in o)M.c[k]=Math.max(0,(M.c[k]||0)+dq*o[k]);save()}
+const chips=()=>`<div class="chp">${MN.map((n,m)=>{const x=gm(cur,m,0),has=x&&(x.t||Object.values(x.c).some(v=>v));return `<button data-a="mi" data-m="${m}" class="${m===mi?"on":""}">${n}${has?" ●":""}</button>`}).join("")}</div>`;
+
+function day(){
+ const M=gm(cur,mi,0)||{c:{},it:{},t:""},A=K.concat("w");
+ let h=`<div class="dn"><button data-a="sh" data-n="-1">‹</button><span>${lbl(cur)}</span><button data-a="sh" data-n="1">›</button></div>${chips()}`;
+ h+=`<div class="card"><b>${MN[mi]}</b><input id="dt" class="dt" value="${esc(M.t||"")}" placeholder="Что это было? Например: суп, котлета, рагу" aria-label="Название блюда"><div class="mrow">${A.map(k=>`<div class="mc" style="--c:var(--${k})"><span>${C[k][0]}</span><button data-a="c" data-k="${k}" data-v="-1">−</button><b>${f(M.c[k]||0)}</b><button data-a="c" data-k="${k}" data-v="1">+</button></div>`).join("")}</div><div class="mut" style="margin-top:8px">Продукты добавляйте на вкладке «Продукты»: они попадут в выбранный приём.</div></div>`;
+ if(!S.norm)h+=`<p class="mut">Сначала задайте норму на вкладке «Моя норма».</p>`;
+ h+=`<b>Итого за день</b>`;
+ A.forEach(k=>{
+  const n=nrm(k),c=cnt(cur,k);let q="";
+  for(let i=0;i<Math.ceil(Math.max(n,c));i++)q+=`<span class="sq${i+1<=c?" f":i<c?" h":""}" style="--c:var(--${k})"></span>`;
+  h+=`<div class="row"><div class="rh"><span>${C[k][0]} ${C[k][1]}</span><b class="${n&&c>n?"over":""}">${f(c)}${n?" / "+n:""}</b></div><div class="sqs">${q}</div>${k==="w"&&S.bonus?`<div class="mut" style="margin-top:6px">Не больше ≈ ${S.bonus} ккал в день</div>`:""}</div>`;
+ });
+ h+=`<div class="card scroll"><b>Последние 7 дней</b><table><tr><th></th>${A.map(k=>`<th>${C[k][0]}</th>`).join("")}</tr>`;
+ for(let i=6;i>=0;i--){const s=shift(cur,-i);h+=`<tr><td>${lbl(s)}</td>`+A.map(k=>{const n=nrm(k),c=cnt(s,k);return `<td class="${n&&c>n?"over":n&&c===n?"ok":""}">${c?f(c):"·"}${n&&c?"/"+n:""}</td>`}).join("")+"</tr>"}
+ $("#day").innerHTML=h+`</table></div><div id="card"></div>`;card();
+}
+function card(){
+ const rows=K.concat("w").filter(k=>k!=="w"||cnt(cur,k)).map(k=>{const n=nrm(k),c=cnt(cur,k);return `<div class="sr" style="--c:var(--${k})"><div><span>${C[k][0]} ${C[k][1]}</span><span class="${n&&c>n?"over":""}">${f(c)}${n?" / "+n:""}</span></div>${n?`<div class="bar"><i style="width:${Math.min(100,c/n*100)}%"></i></div>`:""}</div>`}).join("");
+ const ml=[0,1,2,3,4,5,6].map(m=>{const x=gm(cur,m,0);if(!x)return "";const cs=K.concat("w").filter(k=>x.c[k]).map(k=>C[k][0]+f(x.c[k])).join(" "),its=Object.keys(x.it).map(i=>D[i][0]+(x.it[i]>1?" ×"+x.it[i]:"")).join(", ");if(!cs&&!x.t&&!its)return "";return `<div class="ml"><b>${m===6?"Раньше":MN[m]}${x.t?": "+esc(x.t):""}</b><div>${cs}</div>${its?`<div class="eat">${esc(its)}</div>`:""}</div>`}).join("");
+ $("#card").innerHTML=`<div class="card shot"><input id="nm" class="nm" value="${esc(S.name||"")}" placeholder="Ваше имя" aria-label="Имя для скриншота"><div class="mut">Итог дня: ${lbl(cur)}${S.rng?", "+S.rng+" ккал":""}</div>${rows}${ml}</div><p class="mut">Сделайте скриншот карточки и отправьте в чат.</p>`;
+}
+
+function calc(){
+ const v=id=>+$("#"+id).value,a=v("ag"),ht=v("ht"),w=v("wt");
+ const bmr=10*w+6.25*ht-5*a+($("#sx").value==="m"?5:-161),ok=a&&ht&&w;
+ let idx=$("#br").value,head="",msg="";
+ if(idx===""){
+  if(!ok){$("#res").innerHTML=`<p class="mut">Заполните возраст, рост и вес или выберите калорийность.</p>`;return}
+  let k=bmr*$("#ac").value*($("#gl").value==="l"?.85:1);
+  if(k<1200){k=1200;msg="Расчёт вышел ниже 1200 ккал. Ниже без врача не рекомендуется, поэтому взят самый низкий диапазон."}
+  if(k>2400)msg="Ваша потребность выше 2400 ккал: взят верхний диапазон таблицы, добавляйте порции по самочувствию.";
+  idx=Math.min(5,Math.max(0,Math.floor((k-1200)/200)));head=`≈ ${Math.round(k/10)*10} ккал в день · `;
+ }
+ idx=+idx;const bonus=ok?Math.round(bmr*.05):0;pend={idx,bonus};
+ $("#res").innerHTML=`<div class="card"><b>${head}диапазон ${R[idx]}</b><div class="chips">${K.map((k,i)=>`<span>${C[k][0]} ${T[idx][i]}</span>`).join("")}</div><div class="mut">${C.g[1]}, ${C.p[1].toLowerCase()}, ${C.r[1].toLowerCase()} (с молочным), ${C.y[1].toLowerCase()}, ${C.b[1].toLowerCase()}.${bonus?` Бонус: до ≈ ${bonus} ккал.`:""}</div>${msg?`<p class="mut">${msg}</p>`:""}<button class="btn" data-a="save">Сохранить как мою норму</button></div>`;
+}
+function curNorm(){$("#cur").textContent=S.norm?`Сейчас: ${S.rng} ккал, ${K.map((k,i)=>C[k][0]+S.norm[i]).join(" ")}`:""}
+
+const D=`Капуста, брокколи, кабачок, перец, огурец, помидор, спаржа|g|100 г или ½ чашки|
+Шпинат, салат, кале, зелень|g|100 г|
+Грибы|g|100 г готовых|шиитаке 50 г готовых
+Стручковая фасоль, горошек в стручках, ростки бобовых|g|100 г|
+Лук репчатый, артишок, хрен, чили|g|50 г|
+Морская капуста|g|100 г готовой|следите за солью и маслом
+Яблоко, груша, апельсин, мандарин, персик, ягоды|p|100 г|размером с теннисный мяч
+Морковь, свёкла, тыква|p|100 г|в любом виде
+Дыня|p|100 г|
+Арбуз|p|150 г|
+Курага, чернослив, изюм, финики|p|15 г|не чаще 1–2 раз в неделю
+Банан, манго, виноград|p|50 г|не чаще 1–2 раз в неделю
+Треска, хек, судак (нежирная рыба)|r|30 г готовой|
+Лосось, скумбрия (жирная рыба)|r|30 г готовой|+ 🟦 1 на порцию
+Курица, индейка, говядина, телятина, кролик (постное)|r|30 г готового|
+Креветки, кальмары, раки|r|30 г|
+Печень, сердце, язык|r|30 г|
+Жирное мясо (более 15 г жира в 100 г)|r|30 г|+ 🟦 1, не чаще 1 раза в неделю
+Яйцо куриное|r|1 шт. (50 г)|+ 🟦 1
+Белок яйца|r|25 г|
+Творог мягкий до 5%|r|100 г|
+Творог зернёный до 5%|r|50 г|
+Творог зернёный 9%|r|50 г|+ 🟦 1
+Молоко, кефир, йогурт до 2,5%|r|200 мл|молочное считается белком
+Моцарелла, адыгейский, «лёгкий» сыр до 17%|r|30 г|
+Пармезан и сыры высокой жирности|r|30 г|+ 🟦 1
+Тофу|r|60 г|
+Протеин (порошок)|r|10 г|
+Красная икра, икра минтая и трески|r|30 г|
+Костный бульон|r|200 мл|
+Гречка, бурый рис, киноа, булгур|y|65 г готовых (20 г сухих)|
+Овсянка долгой варки|y|65 г готовой|
+Цельнозерновой хлеб|y|20 г (1 ломтик)|
+Хлебцы несладкие|y|2 круглых или 3–4 тонких|
+Цельнозерновая мука|y|20 г (2 ст. л.)|
+Макароны цельнозерновые|y|65 г готовых|не чаще 2 раз в неделю
+Картофель|y|75 г (1 шт.)|запечённый или варёный, не чаще 2 раз в неделю
+Батат, топинамбур|y|75 г|
+Фасоль, чечевица, горох, нут|y|75 г готовых|+ 🟥 ½
+Кукуруза, зелёный горошек консервированные|y|65 г|без сахара
+Овсяный, гречневый, рисовый напиток|y|200 мл|без сахара
+Соевый напиток|y|200 мл|+ 🟥 ½, без сахара
+Сливочное масло, гхи|b|5 г|
+Растительное масло нерафинированное|b|5 мл (1 ч. л.)|
+Авокадо|b|40 г (¼)|
+Оливки|b|40 г (3–5 шт.)|
+Грецкие орехи|b|10 г (3 шт.)|
+Миндаль, фундук, кешью|b|10 г (5–6 шт.)|
+Семечки (лён, кунжут, чиа), кедровые орехи, урбеч|b|10 г (1 ст. л.)|
+Сметана, сливки до 10%|b|50 г (2 ст. л.)|до 15%: 30 г, до 20%: 25 г
+Желток|b|25 г (1 шт.)|
+Какао-порошок без сахара|b|25 г (1 ст. л.)|
+Кокосовое молоко 17–19%|b|50 мл (2 ст. л.)|без сахара
+Миндальное молоко|b|200 мл|без сахара
+Сало|b|5 г|не чаще 2 раз в неделю
+Сладкое, выпечка из муки высшего сорта, продукты с сахаром|w|в пределах бонуса|
+Свинина, утка, рёбра, бекон, мраморные стейки|w|в пределах бонуса|
+Творог жирнее 9%, сметана жирнее 20%|w|в пределах бонуса|
+Свежевыжатый сок|w|в пределах бонуса|при метаболическом синдроме не рекомендуется`.split("\n").map(l=>l.split("|"));
+function food(){
+ const q=$("#q").value.trim().toLowerCase(),E=(gm(cur,mi,0)||{it:{}}).it;
+ $("#tgt").innerHTML=`<div class="mut">Добавляется в: <b>${MN[mi]}, ${lbl(cur)}</b></div>`+chips();
+ $("#list").innerHTML=D.map((d,i)=>[d,i]).filter(([d])=>!q||d[0].toLowerCase().includes(q)).map(([d,i])=>`<div class="it">${C[d[1]][0]} <b>${d[0]}</b><div class="mut">1 порция: ${d[2]}${d[3]?". "+d[3]:""}</div><div class="step"><button data-a="fa" data-i="${i}" data-d="-1">−</button><b>${E[i]||0}</b><button data-a="fa" data-i="${i}" data-d="1">+ порция</button><span class="mut">${Object.entries(ad(d)).map(([k,v])=>C[k][0]+f(v)).join(" ")}</span></div></div>`).join("")||`<p class="mut">Ничего не найдено. Попробуйте другое слово.</p>`;
+}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
+ if(a==="tab"){["day","calc","food"].forEach(t=>$("#"+t).classList.toggle("hid",t!==b.dataset.t));document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));food()}
+ if(a==="sh"){cur=shift(cur,+b.dataset.n);day();food()}
+ if(a==="mi"){mi=+b.dataset.m;day();food()}
+ if(a==="c"){addC(b.dataset.k,+b.dataset.v);day();food()}
+ if(a==="calc")calc();
+ if(a==="fa"){addItem(+b.dataset.i,+b.dataset.d);day();food()}
+ if(a==="save"&&pend){S.norm=T[pend.idx].slice();S.bonus=pend.bonus;S.rng=R[pend.idx];save();day();curNorm();document.querySelector('nav button[data-t="day"]').click()}
+});
+document.addEventListener("input",e=>{if(e.target.id==="dt"){gm(cur,mi,1).t=e.target.value;save();card();const x=document.querySelector(".chp .on");if(x)x.textContent=MN[mi]+(e.target.value.trim()?" ●":"")}});
+$("#q").addEventListener("input",food);
+document.addEventListener("change",e=>{if(e.target.id==="nm"){S.name=e.target.value;save()}});
+R.forEach((r,i)=>$("#br").insertAdjacentHTML("beforeend",`<option value="${i}">${r} ккал</option>`));
+day();curNorm();food();
+</script></body></html>
